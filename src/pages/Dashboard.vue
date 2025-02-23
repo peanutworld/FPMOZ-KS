@@ -15,9 +15,7 @@
         class="pt-18"
         :class="{ 'pl-64': isSidebarOpen, 'pl-16': !isSidebarOpen }"
       >
-        <p v-if="menuStore.active === 1" class="text-white">
-          Your main content for Home goes here.
-        </p>
+        <Home v-if="menuStore.active === 1" />
         <p v-if="menuStore.active === 2" class="text-white">
           Your main content for Profile goes here.
         </p>
@@ -33,6 +31,7 @@
 import { ref, provide } from "vue";
 import TopBar from "../components/TopBar.vue";
 import Sidebar from "../components/Sidebar.vue";
+import Home from "../components/Home.vue";
 import marvelWallpaper from "../assets/marvel-heroes-background.jpg";
 import { useMenuStore } from "../store/menu";
 

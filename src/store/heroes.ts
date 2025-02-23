@@ -4,8 +4,12 @@ import api from "../api/api";
 interface Hero {
   id: string;
   name: string;
-  power: string;
-  description?: string;
+  fullName: string;
+  bio: string;
+  actor: string;
+  createdBy: string;
+  abilities: string[];
+  imageUrl: string;
 }
 
 export const useHeroesStore = defineStore("heroes", {
@@ -19,7 +23,7 @@ export const useHeroesStore = defineStore("heroes", {
     },
     async addHero(hero: Omit<Hero, "id">) {
       const { data } = await api.post("/marvelHeroes", hero);
-      this.heroes.push(data);
+      this.heroes.push(data.data.marvelhero);
     },
     async updateHero(id: string, hero: Partial<Hero>) {
       await api.patch(`/marvelHeroes/${id}`, hero);
@@ -28,6 +32,10 @@ export const useHeroesStore = defineStore("heroes", {
     async deleteHero(id: string) {
       await api.delete(`/marvelHeroes/${id}`);
       this.heroes = this.heroes.filter((h) => h.id !== id);
+    },
+    async getHeroById(id: string) {
+      const { data } = await api.get(`/marvelHeroes/${id}`);
+      return data.data.marvelHero;
     },
   },
 });

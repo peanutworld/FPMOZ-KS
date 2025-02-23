@@ -6,30 +6,39 @@
     }"
     class="fixed mt-19 left-0 h-full bg-gray-900 text-white z-20 shadow-lg border-r border-white/20 transition-all duration-300"
   >
-    <ul class="space-y-3 mt-3">
-      <li @click="selectMenu(1)">
-        <a
-          href="#"
-          class="flex items-center gap-4 text-md hover:bg-gray-700 px-5 py-2 rounded"
-        >
+    <ul class="mt-3">
+      <li
+        @click="selectMenu(1)"
+        :class="{
+          'bg-gray-700': menuStore.active === 1,
+          'hover:bg-gray-700': menuStore.active !== 1,
+        }"
+      >
+        <a href="#" class="flex items-center gap-4 text-md px-5 py-3 rounded">
           <HomeIcon class="w-6 h-6" />
           <span v-if="showText">Home</span>
         </a>
       </li>
-      <li @click="selectMenu(2)">
-        <a
-          href="#"
-          class="flex items-center gap-4 text-md hover:bg-gray-700 px-5 py-2 rounded"
-        >
+      <li
+        @click="selectMenu(2)"
+        :class="{
+          'bg-gray-700': menuStore.active === 2,
+          'hover:bg-gray-700': menuStore.active !== 2,
+        }"
+      >
+        <a href="#" class="flex items-center gap-4 text-md px-5 py-3 rounded">
           <UserCircleIcon class="w-6 h-6" />
           <span v-if="showText">Profile</span>
         </a>
       </li>
-      <li @click="selectMenu(3)">
-        <a
-          href="#"
-          class="flex items-center gap-4 text-md hover:bg-gray-700 px-5 py-2 rounded"
-        >
+      <li
+        @click="selectMenu(3)"
+        :class="{
+          'bg-gray-700': menuStore.active === 3,
+          'hover:bg-gray-700': menuStore.active !== 3,
+        }"
+      >
+        <a href="#" class="flex items-center gap-4 text-md px-5 py-3 rounded">
           <CogIcon class="w-6 h-6" />
           <span v-if="showText">Settings</span>
         </a>
