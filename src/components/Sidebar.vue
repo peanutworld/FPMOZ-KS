@@ -1,0 +1,65 @@
+<template>
+  <div
+    :class="{
+      'w-64': isSidebarOpen,
+      'w-16': !isSidebarOpen,
+    }"
+    class="fixed mt-19 left-0 h-full bg-gray-900 text-white z-20 shadow-lg border-r border-white/20 transition-all duration-300"
+  >
+    <ul class="space-y-3 mt-3">
+      <li @click="selectMenu(1)">
+        <a
+          href="#"
+          class="flex items-center gap-4 text-md hover:bg-gray-700 px-5 py-2 rounded"
+        >
+          <HomeIcon class="w-6 h-6" />
+          <span v-if="showText">Home</span>
+        </a>
+      </li>
+      <li @click="selectMenu(2)">
+        <a
+          href="#"
+          class="flex items-center gap-4 text-md hover:bg-gray-700 px-5 py-2 rounded"
+        >
+          <UserCircleIcon class="w-6 h-6" />
+          <span v-if="showText">Profile</span>
+        </a>
+      </li>
+      <li @click="selectMenu(3)">
+        <a
+          href="#"
+          class="flex items-center gap-4 text-md hover:bg-gray-700 px-5 py-2 rounded"
+        >
+          <CogIcon class="w-6 h-6" />
+          <span v-if="showText">Settings</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script setup>
+import { ref, inject, watch } from "vue";
+import { useMenuStore } from "../store/menu";
+import { HomeIcon, UserCircleIcon, CogIcon } from "@heroicons/vue/24/outline";
+
+const menuStore = useMenuStore();
+const isSidebarOpen = inject("isSidebarOpen");
+const showText = ref(true);
+
+const selectMenu = async (menu) => {
+  await menuStore.selectMenu(menu);
+};
+
+watch(isSidebarOpen, (newVal) => {
+  if (newVal) {
+    // wait for the sidebar to fully widen before showing the text
+    setTimeout(() => {
+      showText.value = true;
+    }, 100);
+  } else {
+    // hide text when closing
+    showText.value = false;
+  }
+});
+</script>
