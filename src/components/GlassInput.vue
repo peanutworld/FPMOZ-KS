@@ -27,7 +27,6 @@ const props = defineProps({
 const emit = defineEmits(["update:modelValue"]);
 
 const inputClass = computed(() => `p-${props.padding}`); // dynamically apply padding
-
 const widthClass = computed(() => `w-${props.width}`); // dynamically apply width
 
 const updateValue = (event: Event) => {

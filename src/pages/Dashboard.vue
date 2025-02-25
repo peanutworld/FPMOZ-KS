@@ -16,12 +16,8 @@
         :class="{ 'pl-64': isSidebarOpen, 'pl-16': !isSidebarOpen }"
       >
         <Home v-if="menuStore.active === 1" />
-        <p v-if="menuStore.active === 2" class="text-white">
-          Your main content for Profile goes here.
-        </p>
-        <p v-if="menuStore.active === 3" class="text-white">
-          Your main content for Settings goes here.
-        </p>
+        <Profile v-if="menuStore.active === 2" />
+        <Settings v-if="menuStore.active === 3" />
       </div>
     </div>
   </div>
@@ -32,6 +28,8 @@ import { ref, provide } from "vue";
 import TopBar from "../components/TopBar.vue";
 import Sidebar from "../components/Sidebar.vue";
 import Home from "../components/Home.vue";
+import Profile from "../components/Profile.vue";
+import Settings from "../components/Settings.vue";
 import marvelWallpaper from "../assets/marvel-heroes-background.jpg";
 import { useMenuStore } from "../store/menu";
 

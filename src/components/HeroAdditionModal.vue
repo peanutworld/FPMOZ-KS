@@ -125,6 +125,15 @@ const hero = ref({
 
 const openModal = () => {
   isVisible.value = true;
+  hero.value = {
+    name: "",
+    fullName: "",
+    bio: "",
+    actor: "",
+    createdBy: "",
+    abilities: "",
+    imageUrl: "",
+  };
 };
 
 const closeModal = () => {

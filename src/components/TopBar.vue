@@ -24,6 +24,7 @@
       <div class="my-2 flex items-center justify-center">
         <GlassInput
           v-model="filter"
+          @update:modelValue="handleFilterChange($event)"
           placeholder="Search heroes..."
           :padding="2"
           :width="64"
@@ -42,15 +43,22 @@
 import { ref, onMounted, inject } from "vue";
 import { Bars3Icon } from "@heroicons/vue/24/outline";
 import { useAuthStore } from "../store/auth";
+import { useHeroesStore } from "../store/heroes";
 import UserMenu from "../components/UserMenu.vue";
 import GlassInput from "../components/GlassInput.vue";
 
+const emit = defineEmits(["filterChanged"]);
 const username = ref("Mario Jonjic");
 const authStore = useAuthStore();
+const heroesStore = useHeroesStore();
 const isSidebarOpen = inject("isSidebarOpen");
 
 const toggleSidebar = () => {
   isSidebarOpen.value = !isSidebarOpen.value;
+};
+
+const handleFilterChange = (value) => {
+  heroesStore.setFilter(value);
 };
 
 onMounted(() => {

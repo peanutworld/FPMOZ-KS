@@ -15,8 +15,20 @@ interface Hero {
 export const useHeroesStore = defineStore("heroes", {
   state: () => ({
     heroes: [] as Hero[],
+    filter: "",
   }),
+  getters: {
+    filteredHeroes(state) {
+      if (!state.filter) return state.heroes;
+      return state.heroes.filter((hero) =>
+        hero.name.toLowerCase().includes(state.filter.toLowerCase())
+      );
+    },
+  },
   actions: {
+    setFilter(value: string) {
+      this.filter = value;
+    },
     async fetchHeroes() {
       const { data } = await api.get("/marvelHeroes");
       this.heroes = data.data.marvelHeroes;

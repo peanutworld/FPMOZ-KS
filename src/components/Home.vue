@@ -14,7 +14,7 @@
 
       <!-- Actual Hero Cards -->
       <HeroCard
-        v-for="hero in heroes"
+        v-for="hero in heroesStore.filteredHeroes"
         :key="hero.id"
         :hero="hero"
         @showDetails="openHeroDetailsModal"
@@ -36,8 +36,8 @@ import HeroAdditionModal from "../components/HeroAdditionModal.vue";
 import HeroDetailsModal from "../components/HeroDetailsModal.vue";
 
 const heroesStore = useHeroesStore();
-const heroes = ref([]);
 const loading = ref(true);
+const heroes = ref();
 const heroAdditionModal = ref(null);
 const heroDetailsModal = ref(null);
 
@@ -51,7 +51,7 @@ const openHeroDetailsModal = (hero) => {
 
 watch(
   () => heroesStore.heroes,
-  (newHeroes) => {
+  async (newHeroes) => {
     heroes.value = newHeroes;
     loading.value = false;
   }
