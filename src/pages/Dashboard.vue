@@ -11,10 +11,7 @@
     <div class="relative z-10 w-full">
       <TopBar />
       <Sidebar />
-      <div
-        class="pt-18"
-        :class="{ 'pl-64': isSidebarOpen, 'pl-16': !isSidebarOpen }"
-      >
+      <div class="pt-18">
         <Home v-if="menuStore.active === 1" />
         <Profile v-if="menuStore.active === 2" />
         <Settings v-if="menuStore.active === 3" />
@@ -24,7 +21,7 @@
 </template>
 
 <script setup>
-import { ref, provide } from "vue";
+import { ref, provide, watch } from "vue";
 import TopBar from "../components/TopBar.vue";
 import Sidebar from "../components/Sidebar.vue";
 import Home from "../components/Home.vue";
@@ -32,9 +29,17 @@ import Profile from "../components/Profile.vue";
 import Settings from "../components/Settings.vue";
 import marvelWallpaper from "../assets/marvel-heroes-background.jpg";
 import { useMenuStore } from "../store/menu";
+import { useWindowSize } from "@vueuse/core";
 
 const menuStore = useMenuStore();
-const isSidebarOpen = ref(true);
+
+const { width } = useWindowSize();
+watch(width, () => {
+  isMobile.value = width.value < 768;
+});
+const isMobile = ref(width.value < 768);
+
+const isSidebarOpen = ref(!isMobile.value);
 
 provide("isSidebarOpen", isSidebarOpen);
 </script>

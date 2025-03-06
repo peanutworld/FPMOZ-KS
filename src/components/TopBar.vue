@@ -1,39 +1,53 @@
 <template>
   <header
-    class="w-full flex items-center pr-6 border-b border-white/20 bg-white/10 backdrop-blur-lg text-white shadow-lg fixed top-0 left-0 z-10"
+    class="w-full flex items-center pr-0 pl-0 border-b border-white/20 bg-white/10 backdrop-blur-lg text-white shadow-lg fixed top-0 left-0 z-10"
   >
-    <!-- Left Section: Logo, Burger Icon, and Filter -->
-    <div class="flex items-center gap-6">
-      <!-- Logo -->
+    <!-- Left Section: Logo & Burger Icon -->
+    <div class="flex items-center gap-6 md:w-auto justify-between w-full">
+      <!-- Logo & Burger Icon (Mobile version) -->
       <div
-        class="bg-gray-900 w-64 h-18 border-r border-white/20 flex items-center justify-center"
+        class="bg-gray-900 w-full h-18 border-r border-white/20 flex items-center justify-between px-4"
       >
+        <!-- Logo -->
         <img
           src="../assets/logo.png"
           alt="Marvel Heroes Logo"
           class="w-55 h-auto"
         />
-      </div>
-      <!-- Burger Icon -->
-      <div class="my-2 flex items-center justify-center">
-        <button @click="toggleSidebar" class="text-white cursor-pointer">
+        <!-- Burger Icon (Mobile version) -->
+        <button
+          @click="toggleSidebar"
+          class="text-white cursor-pointer flex md:hidden ml-auto relative z-20"
+        >
           <Bars3Icon class="w-6 h-6" />
         </button>
       </div>
+
+      <!-- Burger Icon (Desktop version) -->
+      <button
+        @click="toggleSidebar"
+        class="text-white cursor-pointer hidden md:flex ml-auto relative z-20"
+      >
+        <Bars3Icon class="w-6 h-6" />
+      </button>
+
       <!-- Filter -->
-      <div class="my-2 flex items-center justify-center">
+      <div class="hidden md:flex items-center justify-center">
         <GlassInput
           v-model="filter"
           @update:modelValue="handleFilterChange($event)"
           placeholder="Search heroes..."
+          autocomplete="off"
+          name="filter"
+          id="filter"
           :padding="2"
           :width="64"
         />
       </div>
     </div>
 
-    <!-- Right Section: User Menu -->
-    <div class="my-2 flex items-center ml-auto">
+    <!-- Right Section -->
+    <div class="hidden md:flex items-center ml-auto mr-4">
       <UserMenu :username="username" />
     </div>
   </header>

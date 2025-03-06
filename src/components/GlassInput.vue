@@ -3,6 +3,9 @@
     :value="modelValue"
     @input="updateValue"
     :placeholder="placeholder"
+    :autocomplete="autocomplete"
+    :name="name"
+    :id="id"
     :class="[inputClass, widthClass]"
     class="border border-white/20 bg-transparent my-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
   />
@@ -14,6 +17,12 @@ import { computed } from "vue";
 const props = defineProps({
   modelValue: String,
   placeholder: String,
+  autocomplete: {
+    type: String,
+    default: "off",
+  },
+  name: String,
+  id: String,
   padding: {
     type: Number,
     default: 3,

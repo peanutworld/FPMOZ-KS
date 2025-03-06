@@ -1,6 +1,13 @@
 <template>
-  <div class="m-6 space-y-6">
-    <div class="flex gap-6">
+  <div
+    class="m-6 space-y-6"
+    :class="{
+      'pl-64': isSidebarOpen && !isMobile,
+      'pl-16': !isSidebarOpen && !isMobile,
+      'pl-0': isMobile,
+    }"
+  >
+    <div class="flex flex-wrap gap-6">
       <!-- Profile Information Card -->
       <div
         class="flex-1 max-h-70 p-6 bg-gray-800 text-white rounded-lg shadow-lg"
@@ -73,8 +80,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, inject, watch } from "vue";
 import { useAuthStore } from "../store/auth";
+import { useWindowSize } from "@vueuse/core";
+
+const { width } = useWindowSize();
+watch(width, () => {
+  isMobile.value = width.value < 768;
+});
+const isMobile = ref(width.value < 768);
+const isSidebarOpen = inject("isSidebarOpen");
 
 const authStore = useAuthStore();
 const errorMessage = ref("");
